@@ -28,3 +28,9 @@ LEFT JOIN posts ON users.id = posts.user_id
 LEFT JOIN likes ON posts.id = likes.post_id
 GROUP BY users.id
 ORDER BY total_likes_received DESC;
+
+-- 6. Select all posts of users between 20yo and 30yo 
+SELECT posts.*, YEAR(CURDATE()) - YEAR(users.birthdate) - (DATE_FORMAT(CURDATE(), '%m%d') < DATE_FORMAT(users.birthdate, '%m%d')) AS user_age
+FROM posts
+JOIN users ON posts.user_id = users.id
+WHERE (YEAR(CURDATE()) - YEAR(users.birthdate) - (DATE_FORMAT(CURDATE(), '%m%d') < DATE_FORMAT(users.birthdate, '%m%d')) BETWEEN 20 AND 30);
