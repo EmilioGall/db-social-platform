@@ -34,3 +34,10 @@ SELECT posts.*, YEAR(CURDATE()) - YEAR(users.birthdate) - (DATE_FORMAT(CURDATE()
 FROM posts
 JOIN users ON posts.user_id = users.id
 WHERE (YEAR(CURDATE()) - YEAR(users.birthdate) - (DATE_FORMAT(CURDATE(), '%m%d') < DATE_FORMAT(users.birthdate, '%m%d')) BETWEEN 20 AND 30);
+
+-- 7. Select number of posts and media for each user
+SELECT users.id AS user_id, users.username, COUNT(DISTINCT posts.id) AS post_count, COUNT(DISTINCT medias.id) AS media_count
+FROM users
+LEFT JOIN posts ON users.id = posts.user_id
+LEFT JOIN medias ON users.id = medias.user_id
+GROUP BY users.id;
