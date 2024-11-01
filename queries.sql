@@ -14,3 +14,11 @@ FROM posts
 LEFT JOIN likes ON posts.id = likes.post_id
 GROUP BY posts.id;
 
+-- 4. Order users by number of media uploaded
+SELECT users.id AS user_id, 
+       users.username, 
+       COUNT(medias.id) AS media_count
+FROM users
+LEFT JOIN medias ON users.id = medias.user_id
+GROUP BY users.id
+ORDER BY media_count DESC;
